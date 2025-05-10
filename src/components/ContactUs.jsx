@@ -15,38 +15,35 @@ const ContactUs = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     console.log("Request Callback:", formData);
 
-    // Send email via FormSubmit API
-    const formSubmitData = {
-      name: formData.name,
-      phone: formData.phone,
-      email: formData.email,
-      _subject: "New Callback Request",
-      _captcha: "false",
-      _next: "https://dikshaenterprises.ltd",  // Redirect after submission
-    };
-
-    fetch("https://formsubmit.co/diksha160520@gmail.com", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formSubmitData),
-    })
-      .then(() => {
-        setIsSubmitting(false);
-        // Optional: Show toast or reset form here
-        window.location.href = formSubmitData._next; // Redirect to homepage
-      })
-      .catch((err) => {
-        setIsSubmitting(false);
-        console.error("Error sending form data:", err);
+    try {
+      const response = await fetch("https://diksha-enterprises-backend.vercel.app/api/contact/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
+
+      const data = await response.json();
+
+      if (response.status === 201) {
+        // Optional: Show toast or reset form here
+        alert("Thanks! We will contact you shortly");
+      } else {
+        console.error(data.message);
+      }
+    } catch (err) {
+      console.error("Error submitting form:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-16">
@@ -143,9 +140,8 @@ const ContactUs = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`w-full bg-[#ea5430] text-white py-3 rounded-lg font-semibold shadow-md transition flex items-center justify-center ${
-                isSubmitting ? "opacity-70 cursor-not-allowed" : "hover:bg-[#d94e28]"
-              }`}
+              className={`w-full bg-[#ea5430] text-white py-3 rounded-lg font-semibold shadow-md transition flex items-center justify-center ${isSubmitting ? "opacity-70 cursor-not-allowed" : "hover:bg-[#d94e28]"
+                }`}
             >
               {isSubmitting ? (
                 <>

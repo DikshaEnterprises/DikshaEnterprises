@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Dialog } from "@headlessui/react";
 
@@ -250,19 +250,44 @@ function ProductSubDivision() {
   const product = productData[decodedCategory];
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: "", phone: "" });
+  const [formData, setFormData] = useState({ name: "", phone: "" ,product:""});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (product) {
+      setFormData((prev) => ({
+        ...prev,
+        product: product.title, // Set the product title in formData
+      }));
+    }
+  }, [product]);
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted:", formData);
-    setIsModalOpen(false);
-    alert("Thank you! We'll get back to you shortly.");
+    try {
+      const response = await fetch("http://localhost:5000/api/lead-form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (response.ok) {
+        setIsModalOpen(false);
+        alert("Thank you! We'll get back to you shortly.");
+      } else {
+        alert("Submission failed.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong. Try again.");
+    }
   };
+  
 
   if (!product) {
     return (
@@ -364,6 +389,7 @@ function ProductSubDivision() {
                   className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#ea5430]"
                 />
               </div>
+              <input type="hidden" name="product" value={formData.product} />
               <div className="pt-4 text-right">
                 <button
                   type="submit"

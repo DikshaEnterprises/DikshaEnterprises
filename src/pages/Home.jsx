@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   LineChart,
   Line,
@@ -12,7 +13,53 @@ import WhyChooseUs from "../components/WhyToChooseUs";
 import OurServices from "../components/OurServices";
 import OurProjects from "../components/OurProject";
 import ContactUs from "../components/ContactUs";
+import "../App.css"; // <-- Make sure this includes the keyframes CSS below
 
+// Chart Data
+const salesData = [
+  { month: "Aug", sales: 420 },
+  { month: "Sep", sales: 580 },
+  { month: "Oct", sales: 690 },
+  { month: "Nov", sales: 740 },
+  { month: "Dec", sales: 880 },
+  { month: "Jan", sales: 760 },
+  { month: "Feb", sales: 810 },
+  { month: "Mar", sales: 900 },
+];
+
+// Job Roles
+const jobRoles = {
+  "Field Survey Executive": {
+    location: "Bihar (Field Work)",
+    type: "Field Work",
+  },
+  "Telecalling Executive": {
+    location: "Work from Home",
+    type: "Remote",
+  },
+  "Social Media Manager": {
+    location: "Bihar (Field/Studio Work)",
+    type: "Field + Studio",
+  },
+  "Area Coordinator": {
+    location: "Bihar (District-wise)",
+    type: "Field Supervision",
+  },
+  "Video Editor": {
+    location: "Bihar (Field/Studio Work)",
+    type: "Editing",
+  },
+  "Graphic Designer": {
+    location: "Bihar (Field/Studio Work)",
+    type: "Design",
+  },
+  "Electronic Media Anchor": {
+    location: "Bihar (Field/Studio Work)",
+    type: "Media/Anchor",
+  },
+};
+
+// Carousel Content
 const carouselData = [
   {
     title: "Innovative Product Solutions",
@@ -28,36 +75,39 @@ const carouselData = [
   },
 ];
 
-const salesData = [
-  { month: "Aug", sales: 420 },
-  { month: "Sep", sales: 580 },
-  { month: "Oct", sales: 690 },
-  { month: "Nov", sales: 740 },
-  { month: "Dec", sales: 880 },
-  { month: "Jan", sales: 760 },
-  { month: "Feb", sales: 810 },
-  { month: "Mar", sales: 900 },
-];
-
 function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [openAccordion, setOpenAccordion] = useState(false);
+  const [openJobIndex, setOpenJobIndex] = useState(null);
+  const navigate = useNavigate();
 
   const handlePrev = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? carouselData.length - 1 : prevIndex - 1
+    setCurrentIndex((prev) =>
+      prev === 0 ? carouselData.length - 1 : prev - 1
     );
   };
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === carouselData.length - 1 ? 0 : prevIndex + 1
+    setCurrentIndex((prev) =>
+      prev === carouselData.length - 1 ? 0 : prev + 1
     );
+  };
+
+  const toggleJob = (index) => {
+    setOpenJobIndex(openJobIndex === index ? null : index);
   };
 
   return (
     <>
+      {/* Ticker Announcement */}
+      <div className="ticker-container text-white">
+    <div className="ticker">
+      📢 Bihar Vidhan Sabha 2025 Recruitment – Apply Now for Field, Telecalling, and Media Roles with Diksha Enterprises!
+    </div>
+  </div>
+
       <div className="bg-gray-50 min-h-screen">
-        {/* Top Carousel */}
+        {/* Carousel */}
         <div className="relative">
           <div className="keen-slider">
             <div
@@ -91,9 +141,8 @@ function Home() {
           </button>
         </div>
 
-        {/* Main Content */}
+        {/* Graph + Welcome */}
         <div className="flex flex-col md:flex-row gap-4 p-6">
-          {/* Graph */}
           <div className="md:w-[60%] w-full bg-white rounded-2xl shadow-lg p-6">
             <h2 className="text-2xl font-semibold text-[#ea5430] mb-4">
               Monthly Sales Trends
@@ -135,8 +184,87 @@ function Home() {
             </p>
           </div>
         </div>
+
+        {/* Job Openings Accordion */}
+        <div className="px-6 md:px-12 py-8">
+          <div className="bg-white rounded-xl shadow-lg">
+            <button
+              onClick={() => setOpenAccordion(!openAccordion)}
+              className="w-full px-6 py-4 flex justify-between items-center text-left bg-[#ea5430]/10 hover:bg-[#ea5430]/20 transition"
+            >
+              <h2 className="text-xl font-bold text-[#ea5430]">Job Openings</h2>
+              <svg
+                className={`w-6 h-6 transition-transform ${
+                  openAccordion ? "rotate-180" : ""
+                }`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+
+            {openAccordion && (
+              <div className="divide-y divide-gray-200">
+                {Object.entries(jobRoles).map(([title, info], idx) => {
+                  const isOpen = openJobIndex === idx;
+                  return (
+                    <div key={title}>
+                      <button
+                        onClick={() => toggleJob(idx)}
+                        className="w-full px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition"
+                      >
+                        <span className="font-semibold text-gray-800">
+                          {title}
+                        </span>
+                        <svg
+                          className={`w-5 h-5 transition-transform ${
+                            isOpen ? "rotate-180" : ""
+                          }`}
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </svg>
+                      </button>
+                      {isOpen && (
+                        <div className="px-6 pb-4 text-sm text-gray-700 space-y-2">
+                          <p>
+                            <strong>📍 Location:</strong> {info.location}
+                          </p>
+                          <p>
+                            <strong>🧰 Job Type:</strong> {info.type}
+                          </p>
+                          <button
+                            onClick={() => navigate("/career")}
+                            className="mt-2 inline-block bg-[#ea5430] hover:bg-[#d43f22] text-white px-4 py-2 rounded-md font-medium transition"
+                          >
+                            Apply Now
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
+      {/* Other Sections */}
       <WhyChooseUs />
       <OurServices />
       <OurProjects />

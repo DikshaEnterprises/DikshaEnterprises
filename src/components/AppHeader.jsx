@@ -104,7 +104,7 @@ function AppHeader() {
                         </li>
                         <li>
                             <Link to="/career" className="text-gray-700 hover:text-[#ea5430] font-medium block">
-                                Career
+                               Recruitment
                             </Link>
                         </li>
                         <li>

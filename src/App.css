@@ -39,3 +39,23 @@
     transform: rotate(360deg);
   }
 }
+
+/* App.css */
+
+.ticker-container {
+  overflow: hidden;
+  background-color: #ea5430;
+}
+
+.ticker {
+  display: inline-block;
+  white-space: nowrap;
+  padding: 0.5rem 0;
+  font-weight: 600;
+  animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}

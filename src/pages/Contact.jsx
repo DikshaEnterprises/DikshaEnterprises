@@ -1,11 +1,33 @@
 import React, { useState } from "react";
 import { MapPin, PhoneCall, Mail, MessageSquareText } from "lucide-react";
+import axios from "axios";
 
 const ContactUs = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+  });
 
-  const handleSubmit = () => {
+  const handleChange = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setIsSubmitting(true);
+
+    try {
+      await axios.post("https://diksha-enterprises-backend.vercel.app/api/contact/submit", formData);
+      alert("Thanks! We will contact you shortly");
+      setFormData({ name: "", phone: "", email: "" }); // Reset form
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Failed to submit form.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -14,7 +36,6 @@ const ContactUs = () => {
         {/* Left Side */}
         <div className="p-8 lg:p-12 space-y-8 text-gray-800">
           <h2 className="text-4xl font-bold text-[#ea5430]">Get in Touch With Us</h2>
-
           <div className="space-y-6">
             <div className="flex gap-4 items-start">
               <MapPin className="text-[#ea5430] w-6 h-6 mt-1" />
@@ -26,7 +47,6 @@ const ContactUs = () => {
                 </p>
               </div>
             </div>
-
             <div className="flex gap-4 items-start">
               <PhoneCall className="text-[#ea5430] w-6 h-6 mt-1" />
               <div>
@@ -34,7 +54,6 @@ const ContactUs = () => {
                 <p>+91 9334650638</p>
               </div>
             </div>
-
             <div className="flex gap-4 items-start">
               <Mail className="text-[#ea5430] w-6 h-6 mt-1" />
               <div>
@@ -43,7 +62,6 @@ const ContactUs = () => {
               </div>
             </div>
           </div>
-
           <div>
             <a
               href="https://wa.me/919334650638"
@@ -60,50 +78,43 @@ const ContactUs = () => {
         {/* Right Side */}
         <div className="p-8 lg:p-12 bg-[#f9fafb] rounded-xl shadow-md text-gray-800">
           <h3 className="text-3xl font-semibold mb-8 text-[#ea5430]">Request a Callback</h3>
-          <form
-            action="https://formsubmit.co/diksha160520@gmail.com"
-            method="POST"
-            onSubmit={handleSubmit}
-            className="space-y-6"
-          >
-            {/* Hidden Config */}
-            <input type="hidden" name="_subject" value="New Callback Request" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_next" value="https://dikshaenterprises.ltd/" />
-
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block text-sm font-medium mb-1">Full Name</label>
               <input
                 type="text"
                 name="name"
+                value={formData.name}
+                onChange={handleChange}
                 required
                 placeholder="Your Name"
                 className="w-full bg-white text-gray-900 placeholder-gray-500 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#ea5430]"
               />
             </div>
-
             <div>
               <label className="block text-sm font-medium mb-1">Phone Number</label>
               <input
                 type="tel"
                 name="phone"
+                value={formData.phone}
+                onChange={handleChange}
                 required
                 placeholder="e.g. 9876543210"
                 className="w-full bg-white text-gray-900 placeholder-gray-500 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#ea5430]"
               />
             </div>
-
             <div>
               <label className="block text-sm font-medium mb-1">Email Address</label>
               <input
                 type="email"
                 name="email"
+                value={formData.email}
+                onChange={handleChange}
                 required
                 placeholder="you@example.com"
                 className="w-full bg-white text-gray-900 placeholder-gray-500 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#ea5430]"
               />
             </div>
-
             <button
               type="submit"
               disabled={isSubmitting}
@@ -112,28 +123,25 @@ const ContactUs = () => {
               }`}
             >
               {isSubmitting ? (
-                <>
-                  <svg
-                    className="animate-spin h-5 w-5 mr-2 text-white"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8v8H4z"
-                    ></path>
-                  </svg>
-                  Submitting...
-                </>
+                <svg
+                  className="animate-spin h-5 w-5 mr-2 text-white"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v8H4z"
+                  ></path>
+                </svg>
               ) : (
                 "Submit Request"
               )}
