@@ -142,7 +142,7 @@ function AppHeader() {
                                 <strong>📍 Address:</strong> Ground Floor, 298 Vashudeo Villa,
                                 Priyadarshi Nagar, Road No:1, Bhagwat Nagar, Patna-800026
                             </p>
-                            <p><strong>📞 Contact:</strong> +91-9334650638</p>
+                            <p><strong>📞 Contact:</strong> +91-8062181216</p>
                             <p><strong>✉️ Email:</strong> diksha160520@gmail.com</p>
                         </div>
                         <div className="mt-6 text-right">

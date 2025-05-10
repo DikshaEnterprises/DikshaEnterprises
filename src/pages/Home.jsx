@@ -102,7 +102,7 @@ function Home() {
       {/* Ticker Announcement */}
       <div className="ticker-container text-white">
     <div className="ticker">
-      📢 Bihar Vidhan Sabha 2025 Recruitment – Apply Now for Field, Telecalling, and Media Roles with Diksha Enterprises!
+      📢 Notice Regarding Selection of special project work by Election Event Organisation !
     </div>
   </div>
 
@@ -186,82 +186,7 @@ function Home() {
         </div>
 
         {/* Job Openings Accordion */}
-        <div className="px-6 md:px-12 py-8">
-          <div className="bg-white rounded-xl shadow-lg">
-            <button
-              onClick={() => setOpenAccordion(!openAccordion)}
-              className="w-full px-6 py-4 flex justify-between items-center text-left bg-[#ea5430]/10 hover:bg-[#ea5430]/20 transition"
-            >
-              <h2 className="text-xl font-bold text-[#ea5430]">Job Openings</h2>
-              <svg
-                className={`w-6 h-6 transition-transform ${
-                  openAccordion ? "rotate-180" : ""
-                }`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
-
-            {openAccordion && (
-              <div className="divide-y divide-gray-200">
-                {Object.entries(jobRoles).map(([title, info], idx) => {
-                  const isOpen = openJobIndex === idx;
-                  return (
-                    <div key={title}>
-                      <button
-                        onClick={() => toggleJob(idx)}
-                        className="w-full px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition"
-                      >
-                        <span className="font-semibold text-gray-800">
-                          {title}
-                        </span>
-                        <svg
-                          className={`w-5 h-5 transition-transform ${
-                            isOpen ? "rotate-180" : ""
-                          }`}
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 9l-7 7-7-7"
-                          />
-                        </svg>
-                      </button>
-                      {isOpen && (
-                        <div className="px-6 pb-4 text-sm text-gray-700 space-y-2">
-                          <p>
-                            <strong>📍 Location:</strong> {info.location}
-                          </p>
-                          <p>
-                            <strong>🧰 Job Type:</strong> {info.type}
-                          </p>
-                          <button
-                            onClick={() => navigate("/career")}
-                            className="mt-2 inline-block bg-[#ea5430] hover:bg-[#d43f22] text-white px-4 py-2 rounded-md font-medium transition"
-                          >
-                            Apply Now
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        </div>
+       
       </div>
 
       {/* Other Sections */}

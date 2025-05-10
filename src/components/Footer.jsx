@@ -46,7 +46,7 @@ function Footer() {
               </a>
             </p>
             <p className="text-gray-400 text-sm mb-2">
-              <strong>Phone:</strong> +91 9334650638
+              <strong>Phone:</strong> +91 8062181216
             </p>
             <p className="text-gray-400 text-sm">
               <strong>Address:</strong> Diksha Enterprises, Ground Floor, 298 Vashudeo Villa, Priyadarshi Nagar, Road No:1, Bhagwat Nagar, Patna-800026
