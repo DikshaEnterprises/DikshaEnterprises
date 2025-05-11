@@ -287,7 +287,7 @@
 // export default Career;
 
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 const jobRoles = {
   "Field Survey Executive": {},
   "Telecalling Executive": {},
@@ -299,6 +299,7 @@ const jobRoles = {
 };
 
 function Career() {
+   const navigate = useNavigate();
   return (
     <div className="bg-[#f9fafb] min-h-screen font-sans text-gray-800">
       {/* Header */}
@@ -333,7 +334,7 @@ function Career() {
                     <ul className="mt-2 list-disc list-inside text-gray-700">
                       <li>
                         <a
-                          href="/images/job_jd.pdf"
+                          href="/images/jd_diksha.pdf"
                           className="text-blue-600 font-semibold underline"
                           target="_blank"
                           rel="noopener noreferrer"
@@ -342,17 +343,20 @@ function Career() {
                         </a>
                       </li>
                       <li>
-                        <span className="text-blue-600 font-semibold underline cursor-pointer">
+                        <span className="text-blue-600 font-semibold underline cursor-pointer"
+                          // onClick={() => navigate(`/ApplyNow/${role}`)}
+                          >
+
                           Click here to Apply online (
-                          <span className="animate-blink text-red-600 font-bold">15-05-2025</span>
+                          <span className="animate-blink text-red-600 font-bold">21-05-2025</span>
                           )
                         </span>
 
                       </li>
                     </ul>
                   </td>
-                  <td className="p-4 border text-center font-medium">15-05-25</td>
-                  <td className="p-4 border text-center font-medium">25-05-25</td>
+                  <td className="p-4 border text-center font-medium">21-05-25</td>
+                  <td className="p-4 border text-center font-medium">31-05-25</td>
                 </tr>
               ))}
             </tbody>
