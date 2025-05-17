@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import { Dialog } from "@headlessui/react";
 
 const productData = {
-    "E-Rickshaw": {
-      title: "E-Rickshaw",
-      description: `
+  "E-Rickshaw": {
+    title: "E-Rickshaw",
+    description: `
         The E-Rickshaw is more than just a vehicle — it's a revolution in urban mobility. Powered by a cutting-edge electric motor, it combines environmental sustainability with reliable performance. We proudly manufacture high-performance E-Rickshaws tailored specifically for the needs of Bihar's roads and climate. Our E-Rickshaws are designed to deliver maximum efficiency, comfort, and durability—perfect for daily use in both urban and rural settings.
   
         Built with a reinforced steel chassis and heavy-duty suspension, these vehicles are engineered to handle the uneven roads, potholes, and narrow lanes common across districts like Patna, Gaya, Muzaffarpur, and more. The weather-resistant exterior protects against extreme summer heat, heavy monsoon rains, and dust—ensuring year-round reliability.
@@ -16,34 +16,34 @@ const productData = {
   
         Join the movement towards green, sustainable urban transport with the E-Rickshaw—where technology meets the future of mobility.
       `,
-      images: ["/images/eRikshaw1.jpg", "/images/eRikshaw.jpg"],
-      specCards: [
-        {
-          title: "Optimized for Bihar Terrain",
-          description:
-            "Built with high ground clearance and strong suspension for bumpy village roads and narrow city lanes in Bihar like Patna, Muzaffarpur, and Gaya.",
-        },
-        {
-          title: "Long Range + Low Cost",
-          description:
-            "Runs up to 100 km on a single charge. Cost-effective for daily commutes and local transport. Battery swap compatible.",
-        },
-        {
-          title: "Weather-Resistant Design",
-          description:
-            "Sturdy roof and waterproof body ideal for Bihar’s extreme summers and rainy monsoon seasons. Low maintenance even in harsh conditions.",
-        },
-        {
-          title: "FAME Scheme Compatible",
-          description:
-            "Eligible under India’s FAME II subsidies. Fully compliant with local transport norms — ideal for commercial driving and fleet operations.",
-        },
-      ],
-    },
-  
-    "Tri-Cycle Garbage Rickshaw": {
-      title: "Tri-Cycle Garbage Rickshaw",
-      description: `
+    images: ["/images/eRikshaw1.jpg", "/images/eRikshaw.jpg"],
+    specCards: [
+      {
+        title: "Optimized for Bihar Terrain",
+        description:
+          "Built with high ground clearance and strong suspension for bumpy village roads and narrow city lanes in Bihar like Patna, Muzaffarpur, and Gaya.",
+      },
+      {
+        title: "Long Range + Low Cost",
+        description:
+          "Runs up to 100 km on a single charge. Cost-effective for daily commutes and local transport. Battery swap compatible.",
+      },
+      {
+        title: "Weather-Resistant Design",
+        description:
+          "Sturdy roof and waterproof body ideal for Bihar’s extreme summers and rainy monsoon seasons. Low maintenance even in harsh conditions.",
+      },
+      {
+        title: "FAME Scheme Compatible",
+        description:
+          "Eligible under India’s FAME II subsidies. Fully compliant with local transport norms — ideal for commercial driving and fleet operations.",
+      },
+    ],
+  },
+
+  "Tri-Cycle Garbage Rickshaw": {
+    title: "Tri-Cycle Garbage Rickshaw",
+    description: `
         Designed for compact urban and rural waste management, the Tri-Cycle Garbage Rickshaw is an eco-conscious and cost-effective solution for daily municipal tasks. Its compact frame and pedal-assisted mobility make it ideal for narrow lanes, crowded areas, and places inaccessible to larger vehicles.
   
         We manufacture sturdy, customizable tri-cycle garbage rickshaws that can be operated manually or with assisted power, suitable for both municipalities and private sanitation contractors in Bihar. This model is widely used across towns like Samastipur, Motihari, Darbhanga, and Bhagalpur for door-to-door garbage collection and short-distance waste transportation.
@@ -52,37 +52,37 @@ const productData = {
   
         The Tri-Cycle Garbage Rickshaw is easy to operate, making it a favorite choice for municipal workers. It provides an efficient way to transport large volumes of waste while promoting cleanliness and hygiene in densely populated areas.
       `,
-      images: [
-        "/images/tricycle.webp",
-        "/images/tricycle2.webp"
-      ],
-      specCards: [
-        {
-          title: "Compact & Easy to Maneuver",
-          description:
-            "Perfect for narrow streets and alleyways in Bihar towns and villages. Easily handles sharp turns and uneven pathways.",
-        },
-        {
-          title: "High Load Capacity",
-          description:
-            "Equipped with a heavy-duty waste container for carrying up to 250 kg of garbage in a single trip. Leak-proof and easy to clean.",
-        },
-        {
-          title: "Zero Fuel Cost",
-          description:
-            "Fully pedal-powered or optionally assisted with battery support. Saves daily fuel costs and is eco-friendly.",
-        },
-        {
-          title: "Built for Daily Use",
-          description:
-            "Rugged frame, rust-resistant body, and low maintenance design. Made to handle heavy workloads in all seasons.",
-        },
-      ],
-    },
-  
-    "Plastic Bailing Machine": {
-      title: "Plastic Bailing Machine",
-      description: `
+    images: [
+      "/images/tricycle.webp",
+      "/images/tricycle2.webp"
+    ],
+    specCards: [
+      {
+        title: "Compact & Easy to Maneuver",
+        description:
+          "Perfect for narrow streets and alleyways in Bihar towns and villages. Easily handles sharp turns and uneven pathways.",
+      },
+      {
+        title: "High Load Capacity",
+        description:
+          "Equipped with a heavy-duty waste container for carrying up to 250 kg of garbage in a single trip. Leak-proof and easy to clean.",
+      },
+      {
+        title: "Zero Fuel Cost",
+        description:
+          "Fully pedal-powered or optionally assisted with battery support. Saves daily fuel costs and is eco-friendly.",
+      },
+      {
+        title: "Built for Daily Use",
+        description:
+          "Rugged frame, rust-resistant body, and low maintenance design. Made to handle heavy workloads in all seasons.",
+      },
+    ],
+  },
+
+  "Plastic Bailing Machine": {
+    title: "Plastic Bailing Machine",
+    description: `
         The Plastic Bailing Machine is designed to efficiently compress plastic waste into manageable bales for easy storage and transportation. This machine is ideal for industries that handle large volumes of plastic waste, helping reduce bulk and prepare it for recycling or disposal.
   
         Made with industrial-grade steel and advanced hydraulic systems, the Plastic Bailing Machine ensures long-lasting performance, even under the toughest working conditions. Its powerful compression system guarantees uniform bales, reducing storage costs and simplifying the logistics of waste management.
@@ -91,37 +91,37 @@ const productData = {
   
         With energy-efficient features, high output, and low maintenance costs, the Plastic Bailing Machine is a cost-effective investment for sustainable waste management solutions.
       `,
-      images: [
-        "/images/pbm.jpg",
-        "/images/pbm1.jpg"
-      ],
-      specCards: [
-        {
-          title: "Powerful Compression",
-          description:
-            "High-pressure hydraulic system ensures maximum compression for easy transportation and efficient storage of plastic waste.",
-        },
-        {
-          title: "Durable & Reliable",
-          description:
-            "Industrial-grade materials guarantee long-lasting performance and reduced maintenance costs, even with continuous use.",
-        },
-        {
-          title: "Energy Efficient",
-          description:
-            "Designed to minimize energy consumption while maintaining optimal performance, making it a cost-effective solution for long-term use.",
-        },
-        {
-          title: "Easy Operation",
-          description:
-            "User-friendly interface and automatic cycle operation make the machine easy to use, reducing the need for skilled labor.",
-        },
-      ],
-    },
-  
-    "Plastic 660L wheel Dustbin": {
-      title: "Plastic 660L wheel Dustbin",
-      description: `
+    images: [
+      "/images/pbm.jpg",
+      "/images/pbm1.jpg"
+    ],
+    specCards: [
+      {
+        title: "Powerful Compression",
+        description:
+          "High-pressure hydraulic system ensures maximum compression for easy transportation and efficient storage of plastic waste.",
+      },
+      {
+        title: "Durable & Reliable",
+        description:
+          "Industrial-grade materials guarantee long-lasting performance and reduced maintenance costs, even with continuous use.",
+      },
+      {
+        title: "Energy Efficient",
+        description:
+          "Designed to minimize energy consumption while maintaining optimal performance, making it a cost-effective solution for long-term use.",
+      },
+      {
+        title: "Easy Operation",
+        description:
+          "User-friendly interface and automatic cycle operation make the machine easy to use, reducing the need for skilled labor.",
+      },
+    ],
+  },
+
+  "Plastic 660L wheel Dustbin": {
+    title: "Plastic 660L wheel Dustbin",
+    description: `
         The Plastic 660L Wheel Dustbin is a large-capacity waste container designed for efficient collection and disposal of garbage in residential, commercial, and industrial settings. Its heavy-duty plastic construction ensures durability, even under heavy loads, while the ergonomic design allows for easy movement and handling.
   
         Perfect for use in municipalities, parks, shopping malls, and large industries, this dustbin can handle up to 660 liters of waste. Its large wheels provide smooth mobility across various terrains, making it suitable for large-scale waste collection operations.
@@ -130,37 +130,37 @@ const productData = {
   
         Ideal for waste segregation and transportation, this dustbin helps improve waste management efficiency and supports eco-friendly disposal practices.
       `,
-      images: [
-        "/images/dustbins1.webp",
-        "/images/dusbin2.jpg"
-      ],
-      specCards: [
-        {
-          title: "Heavy Duty Plastic Construction",
-          description:
-            "Made from high-quality polyethylene, ensuring resistance to wear, impact, and UV rays, even in harsh environments.",
-        },
-        {
-          title: "Large Capacity",
-          description:
-            "Can hold up to 660L of waste, reducing the need for frequent collection and making it suitable for high-traffic areas.",
-        },
-        {
-          title: "Easy to Move",
-          description:
-            "Equipped with large wheels for easy maneuverability on rough surfaces, making waste collection efficient and convenient.",
-        },
-        {
-          title: "Hygienic & Safe",
-          description:
-            "Comes with a lid to prevent odors, and is designed for easy cleaning, reducing the risk of contamination and maintaining a clean environment.",
-        },
-      ],
-    },
-  
-    "Industrial Safety Equipment": {
-      title: "Industrial Safety Equipment",
-      description: `
+    images: [
+      "/images/dustbins1.webp",
+      "/images/dusbin2.jpg"
+    ],
+    specCards: [
+      {
+        title: "Heavy Duty Plastic Construction",
+        description:
+          "Made from high-quality polyethylene, ensuring resistance to wear, impact, and UV rays, even in harsh environments.",
+      },
+      {
+        title: "Large Capacity",
+        description:
+          "Can hold up to 660L of waste, reducing the need for frequent collection and making it suitable for high-traffic areas.",
+      },
+      {
+        title: "Easy to Move",
+        description:
+          "Equipped with large wheels for easy maneuverability on rough surfaces, making waste collection efficient and convenient.",
+      },
+      {
+        title: "Hygienic & Safe",
+        description:
+          "Comes with a lid to prevent odors, and is designed for easy cleaning, reducing the risk of contamination and maintaining a clean environment.",
+      },
+    ],
+  },
+
+  "Industrial Safety Equipment": {
+    title: "Industrial Safety Equipment",
+    description: `
         Ensuring worker safety in hazardous environments is critical, and our Industrial Safety Equipment is built to provide maximum protection and comfort. From helmets and gloves to safety shoes and protective clothing, our range of products meets international standards for workplace safety.
   
         Manufactured with advanced materials, these safety products are designed to withstand extreme working conditions, protecting workers from potential injuries, accidents, and environmental hazards. Our equipment is specifically tailored for industries such as manufacturing, construction, mining, and logistics.
@@ -169,36 +169,36 @@ const productData = {
   
         Invest in safety, protect your workforce, and comply with safety regulations with our top-of-the-line Industrial Safety Equipment.
       `,
-      images: [
-        "/images/indus.jpg",
-        "/images/indus2.jpg"
-      ],
-      specCards: [
-        {
-          title: "High-Quality Materials",
-          description:
-            "Made from durable materials such as Kevlar, Gore-Tex, and polycarbonate, ensuring maximum protection against hazards.",
-        },
-        {
-          title: "Certified for Safety",
-          description:
-            "Meets industry standards and regulations, ensuring compliance with safety laws and protecting workers from potential dangers.",
-        },
-        {
-          title: "Comfort & Durability",
-          description:
-            "Designed for all-day comfort with ergonomic features, allowing workers to focus on the task at hand without feeling fatigued.",
-        },
-        {
-          title: "Wide Range of Products",
-          description:
-            "Includes a complete range of safety gear including helmets, gloves, protective clothing, eye protection, and more.",
-        },
-      ],
-    },
-    "Garbage Tipper Trucks": {
-  title: "Garbage Tipper Trucks",
-  description: `
+    images: [
+      "/images/indus.jpg",
+      "/images/indus2.jpg"
+    ],
+    specCards: [
+      {
+        title: "High-Quality Materials",
+        description:
+          "Made from durable materials such as Kevlar, Gore-Tex, and polycarbonate, ensuring maximum protection against hazards.",
+      },
+      {
+        title: "Certified for Safety",
+        description:
+          "Meets industry standards and regulations, ensuring compliance with safety laws and protecting workers from potential dangers.",
+      },
+      {
+        title: "Comfort & Durability",
+        description:
+          "Designed for all-day comfort with ergonomic features, allowing workers to focus on the task at hand without feeling fatigued.",
+      },
+      {
+        title: "Wide Range of Products",
+        description:
+          "Includes a complete range of safety gear including helmets, gloves, protective clothing, eye protection, and more.",
+      },
+    ],
+  },
+  "Garbage Tipper Trucks": {
+    title: "Garbage Tipper Trucks",
+    description: `
     The Garbage Tipper is a heavy-duty waste collection vehicle designed for large-scale waste management in urban and rural areas. Ideal for municipalities, large residential complexes, and commercial establishments, this vehicle is designed to easily transport large quantities of waste while minimizing manual labor.
 
     Built with a robust steel frame and a hydraulic tipping mechanism, the Garbage Tipper allows for quick unloading of waste, reducing time and effort. It’s engineered for easy dumping into larger waste bins or designated collection areas, ensuring high operational efficiency. With a large capacity ranging from 1.5 to 3 tons, it is well-suited for heavy-duty waste collection and transportation.
@@ -207,56 +207,56 @@ const productData = {
 
     Designed for both municipal and private-sector use, this vehicle is an environmentally friendly alternative to fuel-heavy waste collection vehicles, offering a sustainable option for cities working towards reducing emissions. With its large payload, efficiency, and ease of operation, the Garbage Tipper is the ideal solution for reducing the cost of waste management.
   `,
-  images: [
-    "/images/garbagetruck.jpg",
-    "/images/garbagetruck1.webp"
-  ],
-  specCards: [
-    {
-      title: "Heavy-Duty Construction",
-      description:
-        "Built with a strong steel frame to withstand heavy loads and tough environments, ensuring long-lasting durability and low maintenance costs.",
-    },
-    {
-      title: "Hydraulic Tipping Mechanism",
-      description:
-        "Equipped with a hydraulic lift system that facilitates quick and efficient unloading of waste, making waste disposal more efficient.",
-    },
-    {
-      title: "Large Capacity",
-      description:
-        "Can carry between 1.5 to 3 tons of waste, making it suitable for large-scale waste collection operations in urban and rural settings.",
-    },
-    {
-      title: "Smooth Mobility",
-      description:
-        "Large, rugged wheels make the Garbage Tipper perfect for navigating rough roads, narrow lanes, and crowded areas without losing performance.",
-    },
-    {
-      title: "Eco-Friendly Waste Collection",
-      description:
-        "A sustainable solution for waste collection, minimizing emissions and environmental impact compared to traditional fuel-powered vehicles.",
-    },
-  ],
-},
+    images: [
+      "/images/garbagetruck.jpg",
+      "/images/garbagetruck1.webp"
+    ],
+    specCards: [
+      {
+        title: "Heavy-Duty Construction",
+        description:
+          "Built with a strong steel frame to withstand heavy loads and tough environments, ensuring long-lasting durability and low maintenance costs.",
+      },
+      {
+        title: "Hydraulic Tipping Mechanism",
+        description:
+          "Equipped with a hydraulic lift system that facilitates quick and efficient unloading of waste, making waste disposal more efficient.",
+      },
+      {
+        title: "Large Capacity",
+        description:
+          "Can carry between 1.5 to 3 tons of waste, making it suitable for large-scale waste collection operations in urban and rural settings.",
+      },
+      {
+        title: "Smooth Mobility",
+        description:
+          "Large, rugged wheels make the Garbage Tipper perfect for navigating rough roads, narrow lanes, and crowded areas without losing performance.",
+      },
+      {
+        title: "Eco-Friendly Waste Collection",
+        description:
+          "A sustainable solution for waste collection, minimizing emissions and environmental impact compared to traditional fuel-powered vehicles.",
+      },
+    ],
+  },
 
-  };
-  
-  
+};
+
+
 
 function ProductSubDivision() {
   const { category } = useParams();
   const decodedCategory = decodeURIComponent(category);
   const product = productData[decodedCategory];
-
+  const [phoneNumber, setPhoneNumber] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: "", phone: "" ,product:""});
+  const [formData, setFormData] = useState({ name: "", phone: "", product: "" });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
+   
   useEffect(() => {
     if (product) {
       setFormData((prev) => ({
@@ -275,7 +275,7 @@ function ProductSubDivision() {
         },
         body: JSON.stringify(formData),
       });
-  
+
       if (response.ok) {
         setIsModalOpen(false);
         alert("Thank you! We'll get back to you shortly.");
@@ -287,7 +287,7 @@ function ProductSubDivision() {
       alert("Something went wrong. Try again.");
     }
   };
-  
+
 
   if (!product) {
     return (

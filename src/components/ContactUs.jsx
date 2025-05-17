@@ -21,7 +21,7 @@ const ContactUs = () => {
     console.log("Request Callback:", formData);
 
     try {
-      const response = await fetch("https://diksha-enterprises-backend.vercel.app/api/contact/submit", {
+      const response = await fetch("http://dikshabackend-env.eba-wxn4iyrj.ap-south-1.elasticbeanstalk.com/api/contact/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,7 +30,11 @@ const ContactUs = () => {
       });
 
       const data = await response.json();
-
+      setFormData({
+        name: "",
+        phone: "",
+        email: "",
+      })
       if (response.status === 201) {
         // Optional: Show toast or reset form here
         alert("Thanks! We will contact you shortly");

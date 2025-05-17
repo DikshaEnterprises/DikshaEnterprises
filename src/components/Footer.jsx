@@ -61,18 +61,25 @@ function Footer() {
               &copy; {new Date().getFullYear()} Diksha Enterprises. All Rights Reserved.
             </p>
             <div className="flex space-x-4 mt-4 sm:mt-0">
-              <a
-                href="#"
+              <Link
+                to="/PrivacyPolicy"
                 className="text-gray-400 hover:text-[#ea5430] transition-colors duration-300"
               >
                 Privacy Policy
-              </a>
-              <a
-                href="#"
+              </Link>
+
+              <Link
+                to="/TermsOfService"
                 className="text-gray-400 hover:text-[#ea5430] transition-colors duration-300"
               >
                 Terms of Service
-              </a>
+              </Link>
+              <Link
+                to="/RefundCancellationPolicy"
+                className="text-gray-400 hover:text-[#ea5430] transition-colors duration-300"
+              >
+                Refund and Cancellation policy
+              </Link>
             </div>
           </div>
         </div>
