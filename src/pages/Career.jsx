@@ -6,10 +6,10 @@ const jobRoles = {
   "Field Survey Executive": {},
   "Telecalling Executive": {},
   "Social Media Manager": {},
-  "Area Coordinator": {},
+  "District Coordinator": {},
   "Video Editor": {},
-  "Graphic Designer": {},
-  "Electronic Media Anchor": {},
+  "Supervisor": {},
+  "Media Anchor": {},
 };
 
 function Career() {
@@ -52,7 +52,7 @@ function Career() {
                     <p className="mt-2 font-medium text-[#ea5430]">
                       Notice Regarding Selection of special project work by Election Event Organisation (Powered By Diksha Enterprises)
                     </p>
-                    <p className="font-semibold text-[#ea5430]">{role}</p>
+                    <p className="font-semibold text-[#271660]">{role}</p>
                     <ul className="mt-2 list-disc list-inside text-gray-700">
                       <li>
                         <a

@@ -59,25 +59,35 @@ function AppHeader() {
                 <LogIn className="w-5 h-5" /> Login
               </Link>
             ) : (
-              <div
-                className="relative hidden md:block"
-                onMouseEnter={() => setIsUserDropdownOpen(true)}
-                onMouseLeave={() => setIsUserDropdownOpen(false)}
-              >
-                <span className="text-[#ea5430] font-medium cursor-pointer">
-                  Welcome {name}
-                </span>
-                {isUserDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-md shadow-lg z-50">
-                    <button
-                      onClick={handleLogout}
-                      className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-[#ea5430] hover:text-white"
-                    >
-                      Logout
-                    </button>
-                  </div>
-                )}
-              </div>
+        <div className="relative hidden md:block">
+  <button
+    onClick={() => setIsUserDropdownOpen((prev) => !prev)}
+    className="flex items-center gap-1 text-[#ea5430] font-medium focus:outline-none"
+  >
+    Welcome {name}
+    <ChevronDown
+      className={`transition-transform duration-200 ${
+        isUserDropdownOpen ? "rotate-180" : "rotate-0"
+      }`}
+      size={16}
+    />
+  </button>
+  {isUserDropdownOpen && (
+    <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+      <button
+        onClick={() => {
+          handleLogout();
+          setIsUserDropdownOpen(false);
+        }}
+        className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-[#ea5430] hover:text-white"
+      >
+        Logout
+      </button>
+    </div>
+  )}
+</div>
+
+
             )}
 
             <button

@@ -26,7 +26,7 @@ const UserDashboard = () => {
 
     const checkUser = async () => {
       try {
-        const res = await axios.get('http://dikshabackend-env.eba-wxn4iyrj.ap-south-1.elasticbeanstalk.com/api/users/get-user', {
+        const res = await axios.get('https://www.dikshabackend.com/api/users/get-user', {
           params: { userId: storedUserId }
         });
         localStorage.setItem('name', res.data.name);
@@ -46,7 +46,7 @@ const UserDashboard = () => {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const res = await axios.post('http://dikshabackend-env.eba-wxn4iyrj.ap-south-1.elasticbeanstalk.com/api/users', {
+      const res = await axios.post('https://www.dikshabackend.com/api/users', {
         userId,
         name,
         phone: phoneNumber

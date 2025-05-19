@@ -21,7 +21,7 @@ const ContactUs = () => {
     console.log("Request Callback:", formData);
 
     try {
-      const response = await fetch("http://dikshabackend-env.eba-wxn4iyrj.ap-south-1.elasticbeanstalk.com/api/contact/submit", {
+      const response = await fetch("https://www.dikshabackend.com/api/contact/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

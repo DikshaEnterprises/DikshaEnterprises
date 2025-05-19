@@ -13,7 +13,7 @@ function ThankYou() {
     const fetchApplications = async () => {
       try {
         const res = await axios.post(
-          "http://dikshabackend-env.eba-wxn4iyrj.ap-south-1.elasticbeanstalk.com/api/get-applications",
+          "https://www.dikshabackend.com/api/get-applications",
           { userId: user }
         );
         setApplications(res.data.filteredApplications || []);
@@ -49,7 +49,6 @@ function ThankYou() {
     );
   }
 
-  // Show this if no applications found
   if (!applications.length) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4 text-center">
@@ -69,10 +68,9 @@ function ThankYou() {
     );
   }
 
-  // Show full Thank You page with applications if applications exist
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-12">
-      <div className="bg-white shadow-lg rounded-2xl w-full p-10">
+      <div className="bg-white shadow-lg rounded-2xl w-full max-w-6xl p-10">
         <h1 className="text-4xl font-extrabold text-[#ea5430] mb-6 text-center">
           🎉 Thank You!
         </h1>
@@ -88,9 +86,19 @@ function ThankYou() {
           {applications.map((app) => (
             <div
               key={app._id}
-              className="bg-gray-50 border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow"
+              className="bg-gray-50 border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row gap-6"
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Applicant Photo */}
+              <div className="flex-shrink-0">
+                <img
+                  src={app.photo}
+                  alt={`${app.name}'s profile`}
+                  className="w-40 h-40 object-cover rounded-xl border border-gray-300"
+                />
+              </div>
+
+              {/* Applicant Info */}
+              <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <p>
                     <span className="font-semibold text-gray-700">Name:</span> {app.name}
@@ -102,7 +110,8 @@ function ThankYou() {
                     <span className="font-semibold text-gray-700">Mobile:</span> {app.mobile}
                   </p>
                   <p>
-                    <span className="font-semibold text-gray-700">Category:</span> <b>{app.category}</b>
+                    <span className="font-semibold text-gray-700">Category:</span>{" "}
+                    <b>{app.category}</b>
                   </p>
                 </div>
                 <div>

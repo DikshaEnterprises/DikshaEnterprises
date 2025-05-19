@@ -37,7 +37,7 @@ const UserDashboard = () => {
 
     if (rCode) {
       axios
-        .get(`http://dikshabackend-env.eba-wxn4iyrj.ap-south-1.elasticbeanstalk.com/api/referral-earnings/${rCode}`)
+        .get(`https://www.dikshabackend.com/api/referral-earnings/${rCode}`)
         .then((res) => {
           setTotalEarnings(res.data.commission);
           setReferralCount(res.data.count);
@@ -53,7 +53,7 @@ const UserDashboard = () => {
 
   const fetchReferralDataByCode = async () => {
     try {
-      const response = await axios.post('http://dikshabackend-env.eba-wxn4iyrj.ap-south-1.elasticbeanstalk.com/api/referrals/get', {
+      const response = await axios.post('https://www.dikshabackend.com/api/referrals/get', {
         referralCode: localStorage.getItem('referralCode'),
       });
       setTransaction(response.data.referral.transactions || []);
@@ -89,7 +89,7 @@ const UserDashboard = () => {
         activeStatus: 'active',
       };
 
-      await axios.post('http://dikshabackend-env.eba-wxn4iyrj.ap-south-1.elasticbeanstalk.com/api/referrals/claim', payload);
+      await axios.post('https://www.dikshabackend.com/api/referrals/claim', payload);
 
       alert('Claim submitted successfully!');
       setShowClaimModal(false);
@@ -164,7 +164,7 @@ const UserDashboard = () => {
         </div>
 
         <div className="bg-[#fff0eb] border-l-4 border-[#ea5430] p-4 rounded mb-6">
-          <h2 className="font-semibold text-[#ea5430] mb-1">Earn 15% of Application Fees!</h2>
+          <h2 className="font-semibold text-[#ea5430] mb-1">Earn 30% of Application Fees!</h2>
           <p className="text-sm text-gray-700">
             Share your referral code with friends. When someone applies using your code, you’ll earn
             <strong> 30% of their application fee</strong> instantly. It’s a great way to support your

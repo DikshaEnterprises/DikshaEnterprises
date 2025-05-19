@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   LineChart,
   Line,
@@ -100,11 +100,16 @@ function Home() {
   return (
     <>
       {/* Ticker Announcement */}
+
       <div className="ticker-container text-white">
-    <div className="ticker">
-      📢 Notice Regarding Selection of special project work by Election Event Organisation !
-    </div>
-  </div>
+        <div className="ticker">
+          📢 Notice Regarding Selection of special project work by Election Event Organisation!{' '}
+          <Link to="/career" className="text-blue-400 underline hover:text-blue-300">
+            Click here
+          </Link>
+        </div>
+      </div>
+
 
       <div className="bg-gray-50 min-h-screen">
         {/* Carousel */}
@@ -186,7 +191,7 @@ function Home() {
         </div>
 
         {/* Job Openings Accordion */}
-       
+
       </div>
 
       {/* Other Sections */}

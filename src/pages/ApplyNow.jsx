@@ -1,56 +1,66 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from '../firebase';
+
 
 const jobRoles = {
   "Field Survey Executive": {
     location: "Bihar (Field Work)",
     work: "Booth level survey, voter data collection, and outreach.",
-    salary: "₹12,000 - ₹18,000/month + Performance Incentives",
+    salary: "₹13,000/month + Performance Incentives",
     tenure: "5–6 months",
-    fee: 350,
+    GeneralFee: 350,
+    ReservationFee: 200
   },
   "Telecalling Executive": {
     location: "Work from Home",
     work: "Calling voters and data entry.",
-    salary: "₹10,000 - ₹14,000/month + Incentives on Conversion",
+    salary: "₹13,500/month + Incentives on Conversion",
     tenure: "5–6 months",
-    fee: 300,
+    GeneralFee: 350,
+    ReservationFee: 200
   },
   "Social Media Manager": {
     location: "Bihar (Field/Studio Work)",
     work: "Managing outreach on Facebook, WhatsApp, Instagram.",
-    salary: "₹12,500 - ₹18,000/month + Bonus",
+    salary: "₹18,000/month + Bonus",
     tenure: "5–6 months",
-    fee: 400,
+    GeneralFee: 400,
+    ReservationFee: 300
   },
-  "Area Coordinator": {
+  "District Coordinator": {
     location: "Bihar (District-wise)",
     work: "Supervising teams, reporting progress, and area-level control.",
-    salary: "₹18,000 - ₹22,000/month + Team Performance Incentives",
+    salary: "₹22,500/month + Team Performance Incentives",
     tenure: "5–6 months",
-    fee: 500,
+    GeneralFee: 500,
+    ReservationFee: 300
   },
   "Video Editor": {
     location: "Bihar (Field/Studio Work)",
     work: "Editing campaign videos, creating clips and ads.",
-    salary: "₹15,000 - ₹22,000/month + Bonus",
+    salary: "₹18,000/month + Bonus",
     tenure: "5–6 months",
-    fee: 450,
+    GeneralFee: 400,
+    ReservationFee: 300
   },
-  "Graphic Designer": {
+  "Supervisor": {
     location: "Bihar (Field/Studio Work)",
-    work: "Designing banners, social media posts.",
-    salary: "₹12,000 - ₹18,000/month + Bonus",
+    work: "Field Supervision",
+    salary: "₹20,000/month + Bonus",
     tenure: "5–6 months",
-    fee: 400,
+    GeneralFee: 500,
+    ReservationFee: 300
   },
-  "Electronic Media Anchor": {
+  "Media Anchor": {
     location: "Bihar (Field/Studio Work)",
     work: "Hosting live discussions, debates & social events.",
-    salary: "₹18,000 - ₹25,000/month + On-Air Bonus",
+    salary: "₹20,000/month + On-Air Bonus",
     tenure: "5–6 months",
-    fee: 500,
+    GeneralFee: 500,
+    ReservationFee: 300
   },
 };
 
@@ -60,6 +70,9 @@ const ApplyNow = () => {
   const roleDetails = jobRoles[category] || {};
   const [phoneNumber, setPhoneNumber] = useState('');
   const [loading, setLoading] = useState(false);
+  const [fee, setFee] = useState(0);
+  const [imageFile, setImageFile] = useState(null);
+  const [imageURL, setImageURL] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     fatherName: '',
@@ -82,7 +95,17 @@ const ApplyNow = () => {
     userId: localStorage.getItem('userId')
   });
 
-  const [fee, setFee] = useState(roleDetails.fee || 0);
+  // Fee logic
+  useEffect(() => {
+    const cat = formData.category;
+    if (cat === 'GEN') {
+      setFee(roleDetails.GeneralFee || 0);
+    } else if (cat) {
+      setFee(roleDetails.ReservationFee || 0);
+    } else {
+      setFee(0);
+    }
+  }, [formData.category, roleDetails]);
 
   useEffect(() => {
     const entered = formData.referralCode.trim();
@@ -107,12 +130,6 @@ const ApplyNow = () => {
     if (!token) navigate('/login');
   }, [navigate]);
 
-  useEffect(() => {
-    const baseFee = roleDetails.fee || 0;
-    const discounted = formData.referralValid ? baseFee * 0.85 : baseFee;
-    setFee(Math.round(discounted));
-  }, [formData.referralValid, category]);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -131,9 +148,8 @@ const ApplyNow = () => {
   const handlePayment = async () => {
     if (!formData.userId) return;
 
-    // Validate required fields
     const requiredFields = [
-      'name', 'fatherName', 'mobile', 'altMobile', 'email', 'dob', 'gender',
+      'name', 'fatherName', 'mobile', 'email', 'dob', 'gender',
       'address', 'district', 'state', 'category', 'qualification', 'aadhar'
     ];
 
@@ -154,17 +170,31 @@ const ApplyNow = () => {
       return;
     }
 
-    setLoading(true);
-
-    const res = await loadRazorpay('https://checkout.razorpay.com/v1/checkout.js');
-    if (!res) {
-      alert('Failed to load Razorpay SDK');
-      setLoading(false);
+    if (!imageFile) {
+      alert("Please upload a photo.");
       return;
     }
 
+    setLoading(true);
+
+    // Step 1: Upload to Firebase
+    const imageRef = ref(storage, `applicants/${Date.now()}_${imageFile.name}`);
     try {
-      const { data } = await axios.post('http://dikshabackend-env.eba-wxn4iyrj.ap-south-1.elasticbeanstalk.com/api/payment/create-order', { amount: fee });
+      const snapshot = await uploadBytes(imageRef, imageFile);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      setImageURL(downloadURL);
+
+      // Step 2: Load Razorpay SDK
+      const res = await loadRazorpay('https://checkout.razorpay.com/v1/checkout.js');
+      if (!res) {
+        alert('Failed to load Razorpay SDK');
+        setLoading(false);
+        return;
+      }
+
+      // Step 3: Create Order
+      const { data } = await axios.post('https://www.dikshabackend.com/api/payment/create-order', { amount: fee });
+
       const options = {
         key: "rzp_test_IFv0P1wWi2CvpJ",
         currency: data.currency,
@@ -174,9 +204,10 @@ const ApplyNow = () => {
         description: 'Form Fee',
         handler: async (response) => {
           try {
-            const verifyRes = await axios.post('http://dikshabackend-env.eba-wxn4iyrj.ap-south-1.elasticbeanstalk.com/api/payment/verify-payment', {
+            const verifyRes = await axios.post('https://www.dikshabackend.com/api/payment/verify-payment', {
               ...formData,
               category,
+              photo: downloadURL,
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
@@ -206,7 +237,7 @@ const ApplyNow = () => {
       rzp.open();
     } catch (error) {
       console.error(error);
-      alert('Payment failed!');
+      alert('Image upload or payment initiation failed!');
       setLoading(false);
     }
   };
@@ -223,20 +254,42 @@ const ApplyNow = () => {
             <p><strong>Work:</strong> {roleDetails.work}</p>
             <p><strong>Salary:</strong> {roleDetails.salary}</p>
             <p><strong>Tenure:</strong> {roleDetails.tenure}</p>
-            <p><strong>Application Fee:</strong> ₹{roleDetails.fee}</p>
-            {formData.referralValid && (
-              <p className="text-green-600"><strong>Discounted Fee:</strong> ₹{fee} (15% off with referral)</p>
-            )}
+            <p><strong>Application Fee(General):</strong> ₹{roleDetails.GeneralFee}</p>
+            <p><strong>Application Fee(Category(SC/ST/OBC/EWS)):</strong> ₹{roleDetails.ReservationFee}</p>
+
           </div>
         )}
 
         <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+           <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Applicant Photo <span className="text-red-600">*</span>
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setImageFile(e.target.files[0])}
+              className={`block w-full text-sm text-gray-500
+                file:mr-4 file:py-2 file:px-4
+                file:rounded file:border-0
+                file:text-sm file:font-semibold
+                file:bg-[#ea5430] file:text-white
+                hover:file:bg-[#d94525]
+                focus:outline-none
+    
+              `}
+            />
+            {/* {errors.imageFile && <p className="text-red-600 text-xs mt-1">{errors.imageFile}</p>} */}
+          </div>
           <input disabled value={category} className="form-field" placeholder="Post Applied For" />
           <input name="name" onChange={handleChange} placeholder="Candidate Name *" className="form-field" />
           <input name="fatherName" onChange={handleChange} placeholder="Father's Name *" className="form-field" />
           <input disabled value={phoneNumber} className="form-field" placeholder="Mobile Number" />
-          <input name="altMobile" onChange={handleChange} placeholder="Secondary Mobile Number *" className="form-field" />
+          <input name="altMobile" onChange={handleChange} placeholder="Secondary Mobile Number" className="form-field" />
           <input name="email" type="email" onChange={handleChange} placeholder="Email ID *" className="form-field" />
+           <label className="block text-sm font-medium text-gray-700 mb-1">
+              Date of Birth<span className="text-red-600">*</span>
+            </label>
           <input name="dob" type="date" onChange={handleChange} className="form-field" />
 
           <div className="form-field">
@@ -264,7 +317,7 @@ const ApplyNow = () => {
 
           <select name="qualification" onChange={handleChange} className="form-field">
             <option value="">Select Qualification *</option>
-            <option value="below10th">Below 10th</option>
+
             <option value="Secondary">Secondary (10th Pass)</option>
             <option value="Higher Secondary">Higher Secondary (12th Pass)</option>
             <option value="Graduate">Graduate</option>
@@ -306,11 +359,10 @@ const ApplyNow = () => {
               loading
             }
             onClick={handlePayment}
-            className={`w-full py-3 rounded text-lg font-medium transition duration-200 ${
-              (!formData.agree || (formData.hasReferral === 'yes' && !formData.referralValid) || loading)
-                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                : 'bg-[#ea5430] text-white hover:bg-[#d94525]'
-            }`}
+            className={`w-full py-3 rounded text-lg font-medium transition duration-200 ${(!formData.agree || (formData.hasReferral === 'yes' && !formData.referralValid) || loading)
+              ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              : 'bg-[#ea5430] text-white hover:bg-[#d94525]'
+              }`}
           >
             {loading ? 'Processing...' : `Pay ₹${fee}`}
           </button>

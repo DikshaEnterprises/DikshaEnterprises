@@ -268,7 +268,7 @@ function ProductSubDivision() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://dikshabackend-env.eba-wxn4iyrj.ap-south-1.elasticbeanstalk.com/api/lead-form", {
+      const response = await fetch("https://www.dikshabackend.com/api/lead-form", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
