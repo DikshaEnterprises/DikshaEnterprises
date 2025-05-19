@@ -5,74 +5,76 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from '../firebase';
 
 
-const jobRoles = {
-  "Field Survey Executive": {
-    location: "Bihar (Field Work)",
-    work: "Booth level survey, voter data collection, and outreach.",
-    salary: "₹13,000/month + Performance Incentives",
-    tenure: "5–6 months",
-    GeneralFee: 350,
-    ReservationFee: 200
-  },
-  "Telecalling Executive": {
-    location: "Work from Home",
-    work: "Calling voters and data entry.",
-    salary: "₹13,500/month + Incentives on Conversion",
-    tenure: "5–6 months",
-    GeneralFee: 350,
-    ReservationFee: 200
-  },
-  "Social Media Manager": {
-    location: "Bihar (Field/Studio Work)",
-    work: "Managing outreach on Facebook, WhatsApp, Instagram.",
-    salary: "₹18,000/month + Bonus",
-    tenure: "5–6 months",
-    GeneralFee: 400,
-    ReservationFee: 300
-  },
-  "District Coordinator": {
-    location: "Bihar (District-wise)",
-    work: "Supervising teams, reporting progress, and area-level control.",
-    salary: "₹22,500/month + Team Performance Incentives",
-    tenure: "5–6 months",
-    GeneralFee: 500,
-    ReservationFee: 300
-  },
-  "Video Editor": {
-    location: "Bihar (Field/Studio Work)",
-    work: "Editing campaign videos, creating clips and ads.",
-    salary: "₹18,000/month + Bonus",
-    tenure: "5–6 months",
-    GeneralFee: 400,
-    ReservationFee: 300
-  },
-  "Supervisor": {
-    location: "Bihar (Field/Studio Work)",
-    work: "Field Supervision",
-    salary: "₹20,000/month + Bonus",
-    tenure: "5–6 months",
-    GeneralFee: 500,
-    ReservationFee: 300
-  },
-  "Media Anchor": {
-    location: "Bihar (Field/Studio Work)",
-    work: "Hosting live discussions, debates & social events.",
-    salary: "₹20,000/month + On-Air Bonus",
-    tenure: "5–6 months",
-    GeneralFee: 500,
-    ReservationFee: 300
-  },
-};
+// const jobRoles = {
+//   "Field Survey Executive": {
+//     location: "Bihar (Field Work)",
+//     work: "Booth level survey, voter data collection, and outreach.",
+//     salary: "₹13,000/month + Performance Incentives",
+//     tenure: "5–6 months",
+//     GeneralFee: 350,
+//     ReservationFee: 200
+//   },
+//   "Telecalling Executive": {
+//     location: "Work from Home",
+//     work: "Calling voters and data entry.",
+//     salary: "₹13,500/month + Incentives on Conversion",
+//     tenure: "5–6 months",
+//     GeneralFee: 350,
+//     ReservationFee: 200
+//   },
+//   "Social Media Manager": {
+//     location: "Bihar (Field/Studio Work)",
+//     work: "Managing outreach on Facebook, WhatsApp, Instagram.",
+//     salary: "₹18,000/month + Bonus",
+//     tenure: "5–6 months",
+//     GeneralFee: 400,
+//     ReservationFee: 300
+//   },
+//   "District Coordinator": {
+//     location: "Bihar (District-wise)",
+//     work: "Supervising teams, reporting progress, and area-level control.",
+//     salary: "₹22,500/month + Team Performance Incentives",
+//     tenure: "5–6 months",
+//     GeneralFee: 500,
+//     ReservationFee: 300
+//   },
+//   "Video Editor": {
+//     location: "Bihar (Field/Studio Work)",
+//     work: "Editing campaign videos, creating clips and ads.",
+//     salary: "₹18,000/month + Bonus",
+//     tenure: "5–6 months",
+//     GeneralFee: 400,
+//     ReservationFee: 300
+//   },
+//   "Supervisor": {
+//     location: "Bihar (Field/Studio Work)",
+//     work: "Field Supervision",
+//     salary: "₹20,000/month + Bonus",
+//     tenure: "5–6 months",
+//     GeneralFee: 500,
+//     ReservationFee: 300
+//   },
+//   "Media Anchor": {
+//     location: "Bihar (Field/Studio Work)",
+//     work: "Hosting live discussions, debates & social events.",
+//     salary: "₹20,000/month + On-Air Bonus",
+//     tenure: "5–6 months",
+//     GeneralFee: 500,
+//     ReservationFee: 300
+//   },
+// };
 
 const ApplyNow = () => {
   const { category } = useParams();
   const navigate = useNavigate();
-  const roleDetails = jobRoles[category] || {};
+  // const roleDetails = jobRoles[category] || {};
   const [phoneNumber, setPhoneNumber] = useState('');
   const [loading, setLoading] = useState(false);
   const [fee, setFee] = useState(0);
   const [imageFile, setImageFile] = useState(null);
   const [imageURL, setImageURL] = useState('');
+  const [roleDetails, setRoleDetails] = useState(null);
+
   const [formData, setFormData] = useState({
     name: '',
     fatherName: '',
@@ -94,7 +96,19 @@ const ApplyNow = () => {
     agree: false,
     userId: localStorage.getItem('userId')
   });
-
+useEffect(() => {
+  const fetchJobDetails = async () => {
+    try {
+      const encodedCategory = encodeURIComponent(category); // handles spaces like 'Field Survey Executive'
+      const { data } = await axios.get(`https://dikshaenterprisesbackend.onrender.com/api/jobs/${encodedCategory}`);
+      setRoleDetails(data);
+    } catch (error) {
+      console.error("Error fetching job details:", error);
+      setRoleDetails(null);
+    }
+  };
+  fetchJobDetails();
+}, [category]);
   // Fee logic
   useEffect(() => {
     const cat = formData.category;
@@ -193,7 +207,7 @@ const ApplyNow = () => {
       }
 
       // Step 3: Create Order
-      const { data } = await axios.post('https://www.dikshabackend.com/api/payment/create-order', { amount: fee });
+      const { data } = await axios.post('https://dikshaenterprisesbackend.onrender.com/api/payment/create-order', { amount: fee });
 
       const options = {
         key: "rzp_test_IFv0P1wWi2CvpJ",
@@ -204,7 +218,7 @@ const ApplyNow = () => {
         description: 'Form Fee',
         handler: async (response) => {
           try {
-            const verifyRes = await axios.post('https://www.dikshabackend.com/api/payment/verify-payment', {
+            const verifyRes = await axios.post('https://dikshaenterprisesbackend.onrender.com/api/payment/verify-payment', {
               ...formData,
               category,
               photo: downloadURL,
@@ -243,7 +257,9 @@ const ApplyNow = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white px-4 py-6 md:px-8">
+    
+   (!roleDetails)?<div className="p-6 text-center text-gray-600">Loading job details...</div>:
+     <div className="min-h-screen bg-white px-4 py-6 md:px-8">
       <div className="max-w-full mx-auto bg-white shadow-md p-6 rounded-md">
         <h2 className="text-2xl font-bold mb-6 text-[#ea5430]">Apply for: {category}</h2>
 
@@ -369,6 +385,7 @@ const ApplyNow = () => {
         </form>
       </div>
     </div>
+  
   );
 };
 

@@ -26,7 +26,7 @@ const UserDashboard = () => {
 
     const checkUser = async () => {
       try {
-        const res = await axios.get('https://www.dikshabackend.com/api/users/get-user', {
+        const res = await axios.get('https://dikshaenterprisesbackend.onrender.com/api/users/get-user', {
           params: { userId: storedUserId }
         });
         localStorage.setItem('name', res.data.name);
@@ -46,7 +46,7 @@ const UserDashboard = () => {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const res = await axios.post('https://www.dikshabackend.com/api/users', {
+      const res = await axios.post('https://dikshaenterprisesbackend.onrender.com/api/users', {
         userId,
         name,
         phone: phoneNumber

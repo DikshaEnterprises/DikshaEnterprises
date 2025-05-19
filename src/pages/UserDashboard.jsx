@@ -37,7 +37,7 @@ const UserDashboard = () => {
 
     if (rCode) {
       axios
-        .get(`https://www.dikshabackend.com/api/referral-earnings/${rCode}`)
+        .get(`https://dikshaenterprisesbackend.onrender.com/api/referral-earnings/${rCode}`)
         .then((res) => {
           setTotalEarnings(res.data.commission);
           setReferralCount(res.data.count);
@@ -53,7 +53,7 @@ const UserDashboard = () => {
 
   const fetchReferralDataByCode = async () => {
     try {
-      const response = await axios.post('https://www.dikshabackend.com/api/referrals/get', {
+      const response = await axios.post('https://dikshaenterprisesbackend.onrender.com/api/referrals/get', {
         referralCode: localStorage.getItem('referralCode'),
       });
       setTransaction(response.data.referral.transactions || []);
@@ -89,7 +89,7 @@ const UserDashboard = () => {
         activeStatus: 'active',
       };
 
-      await axios.post('https://www.dikshabackend.com/api/referrals/claim', payload);
+      await axios.post('https://dikshaenterprisesbackend.onrender.com/api/referrals/claim', payload);
 
       alert('Claim submitted successfully!');
       setShowClaimModal(false);

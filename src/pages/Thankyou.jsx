@@ -13,7 +13,7 @@ function ThankYou() {
     const fetchApplications = async () => {
       try {
         const res = await axios.post(
-          "https://www.dikshabackend.com/api/get-applications",
+          "https://dikshaenterprisesbackend.onrender.com/api/get-applications",
           { userId: user }
         );
         setApplications(res.data.filteredApplications || []);

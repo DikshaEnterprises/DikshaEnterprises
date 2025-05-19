@@ -19,7 +19,7 @@ const ContactUs = () => {
     setIsSubmitting(true);
 
     try {
-      await axios.post("https://www.dikshabackend.com/api/contact/submit", formData);
+      await axios.post("https://dikshaenterprisesbackend.onrender.com/api/contact/submit", formData);
       alert("Thanks! We will contact you shortly");
       setFormData({ name: "", phone: "", email: "" }); // Reset form
     } catch (error) {
