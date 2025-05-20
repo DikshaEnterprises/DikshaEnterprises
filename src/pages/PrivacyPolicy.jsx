@@ -93,7 +93,7 @@ const PrivacyPolicy = () => {
           Diksha Enterprises, Ground Floor, 298 Vasudeo Villa, Priyadarshi Nagar,
                   Road No:1, Bhagwat Nagar, Patna-800026<br />
           Email: diksha160520@gmail.com<br />
-          Phone: +91 8062181216
+          Phone: +91 9117636684
         </p>
       </div>
     </div>

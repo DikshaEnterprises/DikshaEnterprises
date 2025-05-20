@@ -247,7 +247,7 @@ function AppHeader() {
                 Priyadarshi Nagar, Road No:1, Bhagwat Nagar, Patna-800026
               </p>
               <p>
-                <strong>📞 Contact:</strong> +91-8062181216
+                <strong>📞 Contact:</strong> +91-9117636684
               </p>
               <p>
                 <strong>✉️ Email:</strong> diksha160520@gmail.com

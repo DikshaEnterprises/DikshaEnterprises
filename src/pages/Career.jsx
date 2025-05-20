@@ -56,7 +56,7 @@ function Career() {
                     <ul className="mt-2 list-disc list-inside text-gray-700">
                       <li>
                         <a
-                          href="/images/jd_diksha.pdf"
+                          href="/images/final-pdf.pdf"
                           className="text-blue-600 font-semibold underline"
                           target="_blank"
                           rel="noopener noreferrer"
@@ -86,15 +86,15 @@ function Career() {
                           }}
                         >
                           Click here to Apply online (
-                          <span className="animate-blink text-red-600 font-bold">21-05-2025</span>
+                          <span className="animate-blink text-red-600 font-bold">25-05-2025</span>
                           )
                         </span>
                       </li>
 
                     </ul>
                   </td>
-                  <td className="p-4 border text-center font-medium">21-05-25</td>
-                  <td className="p-4 border text-center font-medium">31-05-25</td>
+                  <td className="p-4 border text-center font-medium">25-05-25</td>
+                  <td className="p-4 border text-center font-medium">10-06-25</td>
                 </tr>
               ))}
             </tbody>

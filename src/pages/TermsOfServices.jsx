@@ -78,7 +78,7 @@ const TermsOfService = () => {
               </a>
             </span>
             <span>
-              <strong>Phone:</strong> +91 8062181216
+              <strong>Phone:</strong> +91 9117636684
             </span>
           </p>
         </section>
