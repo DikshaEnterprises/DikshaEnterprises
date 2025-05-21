@@ -80,6 +80,12 @@ function Footer() {
               >
                 Refund and Cancellation policy
               </Link>
+                <Link
+                to="/ShippingPolicy"
+                className="text-gray-400 hover:text-[#ea5430] transition-colors duration-300"
+              >
+                Shipping and Delivery Policy
+              </Link>
             </div>
           </div>
         </div>

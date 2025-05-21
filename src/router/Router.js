@@ -15,6 +15,7 @@ import UserName from "../pages/userName";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import TermsOfService from "../pages/TermsOfServices";
 import RefundCancellationPolicy from "../pages/Refund";
+import ShippingPolicy from "../pages/ShippingPolicy";
 
 function AppRoutes() {
   const [token, setToken] = useState(null);
@@ -53,6 +54,7 @@ function AppRoutes() {
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
          <Route path="/TermsOfService" element={<TermsOfService />} />
          <Route path='/RefundCancellationPolicy' element={<RefundCancellationPolicy/>}/>
+         <Route path='/ShippingPolicy' element={<ShippingPolicy/>}/>
     </Routes>
   );
 }
